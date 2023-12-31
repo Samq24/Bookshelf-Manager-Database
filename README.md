@@ -27,7 +27,32 @@ No database is complete without data, right?
 
 For a tailored perspective on the data, I crafted views. A notable example is the `ReadBooks` view, presenting a curated list of books that have already been enjoyed.
 
-## Stay Tuned for Updates!
+## Testing the Database
 
-As the Bookshelf Manager evolves, expect continuous updates to enhance the application and its underlying database. Feel free to explore, and happy reading! 📚
+Now, let's run a test to retrieve information from the database. Execute the following SQL query:
+
+```sql
+SELECT
+    Books.Title AS 'Book Title',
+    Authors.Name AS 'Author Name',
+    Countries.Country_Name AS 'Country',
+    Publishers.Name AS 'Publisher',
+    Books.Publication_Year AS 'Publication Year',
+    Books.Page_Count AS 'Page Count',
+    CASE
+        WHEN Books.IsRead = 1 THEN 'Yes'
+        ELSE 'No'
+    END AS 'Is Read'
+FROM
+    Books
+JOIN Authors ON Books.Author_ID = Authors.Author_ID
+JOIN Countries ON Authors.Nationality_ID = Countries.Country_ID
+JOIN Publishers ON Books.Publisher_ID = Publishers.Publisher_ID;
+
+
+| Book Title                     | Author Name         | Country      | Publisher            | Publication Year  | Page Count | Is Read |
+| ------------------------------ | ------------------- | ------------ | -------------------- | ----------------- | ---------- | ------- |
+| Pensar Rápido, Pensar Despacio | Daniel Kahneman     | Palestine    | Penguin Random House | 2012              | 590        | No      |
+| El Método Lean Startup         | Eric Ries           | United States| Editorial Deusto     | 2011              | 319        | No      |
+| La Vaca Púrpura                | Seth Godin          | United States| Editorial Booket     | 2003              | 173        | No      |
 
